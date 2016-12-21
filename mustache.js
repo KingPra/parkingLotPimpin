@@ -1,3 +1,7 @@
+/**
+ * 
+ */
+
 let cars = [
     {
         'make': 'Acura',
@@ -53,28 +57,28 @@ let cars = [
 let parkingLots =
     [
         {
-            'lotID': 0,
+            'id': 0,
             'capacity': 5,
             'maxCapacity': 15,
-            'cost': 5,
+            'rate': 5,
         },
         {
-            'lotID': 1,
+            'id': 1,
             'capacity': 5,
             'maxCapacity': 15,
-            'cost': 5,
+            'rate': 5,
         },
         {
-            'lotID': 2,
+            'id': 2,
             'capacity': 5,
             'maxCapacity': 15,
-            'cost': 5,
+            'rate': 5,
         },
         {
-            'lotID': 3,
+            'id': 3,
             'capacity': 5,
             'maxCapacity': 15,
-            'cost': 5,
+            'rate': 5,
         },
     ]
 
@@ -83,7 +87,6 @@ window.addEventListener('load', function () {
 
     // for loop for car array
     for (let i = 0; i < cars.length; i++) {
-        for (j = 0; j < parkingLots. length; j++) {
         // creating a new li
         let carList = document.createElement('li');
         // links carList to Mustache method in html
@@ -95,16 +98,21 @@ window.addEventListener('load', function () {
                 makeModel: cars[i].make + ' ' + cars[i].model,
                 size: cars[i].size,
                 funds: cars[i].funds,
-                plots: parkingLots[j].lotID,
-            }
+                lots: [
+                    {plots: 0},
+                    {plots: 1},
+                    {plots: 2},
+                    {plots: 3},
+                ]}
+            
         );
         // parent variable to class car-list
         let parent = document.querySelector('.car-list');
         //"parent" adopts carList
         parent.appendChild(carList);
-        console.log(parkingLots[j].cost);
+        //console.log(buttonCount);
     }
-    }
+    
 
 
     /**
@@ -114,21 +122,22 @@ window.addEventListener('load', function () {
      * 3. assign lot and assign car to buttons
      * 4. button sends car to lot.
      */
-    for (i = 0; i < cars.length; i++) {
-        for (j = 0; j < parkingLots. length; j++) {
+   // for (i = 0; i < cars.length; i++) {
+     //   for (j = 0; j < parkingLots. length; j++) {
 
-                let buttonList = document.createElement('button');
+       //         let buttonList = document.createElement('button');
                 // buttonList.innerHTML = Mustache.render(
                 //     document.querySelector('#cars').innerHTML,
                 //     {
-                //         lotid: parkingLots[i].lotID,
+                //         id: parkingLots[i].id,
                 //     }
                 // );
              //   let buttonDaddy = document.querySelector('.car-list');
              //   buttonDaddy.appendChild(buttonList);
-                console.log('button list should be in full effect');
-            }
-        }
+         //       console.log('button list should be in full effect');
+                //document.addEventListener('click', button);
+   //         }
+     //   }
     
 
 
@@ -142,15 +151,15 @@ window.addEventListener('load', function () {
         lotList.innerHTML = Mustache.render(
             document.querySelector('#lots').innerHTML,
             {//html: js array   
-                lot: parkingLots[i].lotID,
+                lot: parkingLots[i].id,
                 capacity: parkingLots[i].capacity + '/' + parkingLots[i].maxCapacity,
-                cost: parkingLots[i].cost,
+                rate: parkingLots[i].rate,
             }
         );
         let adopter = document.querySelector('.parking-lot');
         adopter.appendChild(lotList);
         console.log('lotList is running');
-        console.log(parkingLots[i].lotID);
+        console.log(parkingLots[i].id);
     }
 
 

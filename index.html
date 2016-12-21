@@ -12,10 +12,9 @@
             <h1>{{makeModel}}</h1>
             <p>Size: {{size}}</p>
             <p>Funds: ${{funds}}</p>
-            <button id="lot0">{{plots}}</button>
-            <button id="lot1">{{plots}}</button>
-            <button id="lot2">{{plots}}</button>
-            <button id="lot3">{{plots}}</button>
+            {{#lots}}
+            <button>{{plots}}</button>
+            {{/lots}}
     </script>
     <!--Mustache script for parking lots-->
     <script id="lots" type="x-mustache-template">
