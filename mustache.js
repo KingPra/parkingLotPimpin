@@ -14,6 +14,7 @@ window.addEventListener('load', function () {
 // });
 
 
+
 function lotInfo() {
     let request = new XMLHttpRequest();
     request.open('GET', 'https://mysterious-wildwood-46789.herokuapp.com/lots');
@@ -23,46 +24,72 @@ function lotInfo() {
 
         // for loop for parking lot array
         for (let i = 0; i < response.length; i++) {
+
             let parkedList = response[i].inLot;
             console.log('first loop is logging lot id: ' + response[i].id);
             let carArr1 = [];
             let carArr2 = [];
             let carArr3 = [];
             let carArr4 = [];
+            let currentLotCap0 = 0;
             let currentLotCap1 = 0;
             let currentLotCap2 = 0;
             let currentLotCap3 = 0;
-            let currentLotCap4 = 0;
-            
+            let arrayOfArrays = [carArr1, carArr2, carArr3, carArr4];
+
             for (j = 0; j < parkedList.length; j++) {
                 console.log('second loop is logging Car Make: ' + parkedList[j].make);
-                if (response[i].id === 0 && currentLotCap1 <= response[i].capacity) {
-                    console.log('if statement 1 is logging id: ' + response[i].id +' max capacity ' + response[i].capacity);
+//lot 0
+                if (response[i].id === 0 && currentLotCap0 <= response[i].capacity) {
+                    console.log('if statement 1 is logging id: ' + response[i].id + ' max capacity ' + response[i].capacity);
                     carArr1.push(parkedList[j].make + ' ' + parkedList[j].model);
-                    currentLotCap1 +=parkedList[j].size;
-                    console.log('current Lot Cap1 ', currentLotCap1);
+                    let storedCap = 0;
+                    currentLotCap0 += parkedList[j].size;
+//lot 0 rejection
+                    if (response[i].id === 0 && currentLotCap0 > response[i].capacity) {
+                        currentLotCap0 -= parkedList[j].size;
+                        carArr1.pop();
+                    }
+                    console.log('current Lot Cap1 ', currentLotCap0);
                     console.log('carArr1 = ' + carArr1[j]);
-                    
+//lot 1
                 }
-                else if (response[i].id === 1 && currentLotCap2 <= response[i].capacity) {
+                else if (response[i].id === 1 && currentLotCap1 <= response[i].capacity) {
                     console.log('if statement 2 is logging id: ' + response[i].id)
                     carArr2.push(parkedList[j].make + ' ' + parkedList[j].model);
-                    currentLotCap2 +=parkedList[j].size;
-                    console.log('current Lot Cap2 ', currentLotCap2);
+                    currentLotCap1 += parkedList[j].size;
+                    console.log('current Lot Cap2 ', currentLotCap1);
                     console.log('carArr2:  ' + carArr2);
+//lot 1 rejection
+                    if (response[i].id === 1 && currentLotCap1 > response[i].capacity) {
+                        currentLotCap1 -= parkedList[j].size;
+                        carArr2.pop();
+                    }
                 }
-                else if (response[i].id === 2 && currentLotCap3 <= response[i].capacity) {
+ // lot 2               
+                else if (response[i].id === 2 && currentLotCap2 <= response[i].capacity) {
                     carArr3.push(parkedList[j].make + ' ' + parkedList[j].model);
-                    currentLotCap3 +=parkedList[j].size;
-                    console.log('current Lot Cap3 ', currentLotCap3);
+                    currentLotCap2 += parkedList[j].size;
+                    console.log('current Lot Cap3 ', currentLotCap2);
                     console.log('carArr3: ' + carArr3);
+// lot 2 rejection
+                    if (response[i].id === 0 && currentLotCap2 > response[i].capacity) {
+                        currentLotCap2 -= parkedList[j].size;
+                        carArr3.pop();
+                    }
                 }
+  // lot 3              
                 else {
                     carArr4.push(parkedList[j].make + ' ' + parkedList[j].model);
-                    currentLotCap4 +=parkedList[j].size;
-                    console.log('current Lot Cap4 ', currentLotCap4);
+                    currentLotCap3 += parkedList[j].size;
+                    console.log('current Lot Cap4 ', currentLotCap3);
                     console.log('carArr4: ' + carArr4);
-                 }
+// lot 3 rejection
+                    if (response[i].id === 0 && currentLotCap3 > response[i].capacity) {
+                        currentLotCap3 -= parkedList[j].size;
+                        carArr4.pop();
+                    }
+                }
             }
             // creating a new li 
             let lotList = document.createElement('li');
@@ -71,15 +98,15 @@ function lotInfo() {
                 document.querySelector('#lots').innerHTML,
                 {//html: js array   
                     lot: response[i].id,
-                    currentCap: [currentLotCap1, currentLotCap2, currentLotCap3, currentLotCap4],
+                    currentCap: currentLotCap0 + currentLotCap1 + currentLotCap2 + currentLotCap3,
                     capacity: response[i].capacity,
                     cost: response[i].rate,
-                    parked: [carArr1, carArr2, carArr3, carArr4]
-                    
-                    
+                    parked: arrayOfArrays[i],
+
+
+
                 }
             )
-            
             let adopter = document.querySelector('.parking-lot');
             adopter.appendChild(lotList);
             //console.log('lotList is running');
