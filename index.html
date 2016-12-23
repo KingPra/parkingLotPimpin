@@ -13,14 +13,17 @@
             <p>Size: {{size}}</p>
             <p>Funds: ${{funds}}</p>
             {{#lots}}
-            <button class="lotButton plots-{{plots}}">Lot: {{plots}}</button>
+            <button class= "plotsbutton" id="plots-{{plots}}">Lot: {{plots}}</button>
             {{/lots}}
     </script>
     <!--Mustache script for parking lots-->
     <script id="lots" type="x-mustache-template">
     <h1>Lot: {{lot}}</h1>
-    <p>Capacity: {{capacity}}</p>
+    <p>Capacity: {{currentCap}}/ {{capacity}}</p>
     <p>Cost: ${{cost}}</p>
+    <ul id="parked">
+    <li>Parked : {{parked}}</li>
+    <ul>
     </script>
 </head>
 
@@ -36,7 +39,7 @@
     <div id="car">
         <!--Lot list goes here-->
         <ul class="car-list"></ul>
-        </div>
+    </div>
     </div>
 </body>
 

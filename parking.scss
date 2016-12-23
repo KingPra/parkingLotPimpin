@@ -3,13 +3,22 @@
 @include foundation-grid;
 
 body {
+    background-color: #1A1C1D;
+    color: #eee;
 }
 header {
     text-align: center;
+    color: #ccc;
+    font-size: 2em;
 }
 
 ul {
     list-style: none;
+    padding-left: 0;
+}
+.parking-lot {
+    background-color: #32343A;
+    border: 1px solid black;
 }
 
 .car-list li{
@@ -17,7 +26,7 @@ ul {
     padding-left: 20px;
     list-style: none;
     border: 1px solid black;
-    background-color: grey;
+    background-color: #32343A;
 }
 
 #lotList {
@@ -34,13 +43,13 @@ ul {
     margin: 15px;
     padding: 0 15px 10px 15px;
     border: 1px solid black;
-    background-color: grey;
+    background-color: #1A1C1D;
     display: inline-block;
     text-align: center;
 }
 
-.lotButton {
-    background-color: white;
+.plotsbutton {
+    background-color: #1A1C1D;
     border: 1px solid black;
     width: 100px;
     height: 40px;
